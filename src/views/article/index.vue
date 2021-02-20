@@ -6,7 +6,7 @@
 
 <script>
   export default {
-    name: 'article',
+    name: 'essay',
     data() {
       return {};
     }
