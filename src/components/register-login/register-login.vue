@@ -26,6 +26,7 @@
   import router from '../../router';
   const { check } = require('./util');
   const { toRegister, toLogin } = require('../../request');
+  const { setStorage } = require('../../common');
   export default {
     name: '',
     data() {
@@ -45,10 +46,10 @@
               const role = res.role;
               const userName = res.userName;
               const authority = JSON.stringify(res.authority);
-              window.sessionStorage.setItem('token', token);
-              window.sessionStorage.setItem('role', role);
-              window.sessionStorage.setItem('userName', userName);
-              window.sessionStorage.setItem('authority', authority);
+              setStorage('token', token);
+              setStorage('role', role);
+              setStorage('userName', userName);
+              setStorage('authority', authority);
               this.successNotify(res.data);
               router.replace('/home');
             } else {

@@ -64,6 +64,7 @@
 
 <script>
   const { getGhsConfig } = require('@/request');
+  const { getStorage } = require('../../common');
   export default {
     name: 'leftNav',
     data() {
@@ -83,7 +84,7 @@
         this.isCollapse = !this.isCollapse;
       },
       isAllow(auth) {
-        const authorities = JSON.parse(window.sessionStorage.getItem('authority'));
+        const authorities = JSON.parse(getStorage('authority'));
         if (authorities[auth] === 1) return true;
         return false;
       },

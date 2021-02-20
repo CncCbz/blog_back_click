@@ -1,5 +1,6 @@
 // import axios from 'axios';
 const axios = require('axios');
+const { getStorage } = require('../common');
 
 const request = config => {
   // 1.创建axios的实例
@@ -13,7 +14,7 @@ const request = config => {
   // 2.1.请求拦截的作用
   instance.interceptors.request.use(
     config => {
-      const token = window.sessionStorage.getItem('token');
+      const token = getStorage('token');
       if (token) {
         config.headers.common['Authorization'] = 'Bearer ' + token;
       }

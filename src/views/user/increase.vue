@@ -25,6 +25,7 @@
 
 <script>
   const { getRoles, addUser } = require('@/request');
+  const { getStorage } = require('../../common/index');
   export default {
     name: 'userIncrease',
     data() {
@@ -63,7 +64,7 @@
         }
       };
       return {
-        userName: window.sessionStorage.getItem('userName'),
+        userName: getStorage('userName'),
         ruleForm: {
           userName: '',
           pass: '',

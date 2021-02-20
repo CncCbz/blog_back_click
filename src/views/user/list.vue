@@ -67,13 +67,14 @@
 
 <script>
   const { getUsers, editUser, deleteUser, deleteUsers } = require('@/request');
+  const { getStorage } = require('@/common');
   export default {
     name: 'userList',
     data() {
       return {
         showTable: true,
-        userName: window.sessionStorage.getItem('userName'),
-        role: window.sessionStorage.getItem('role'),
+        userName: getStorage('userName'),
+        role: getStorage('role'),
         users: [],
         search: '',
         multipleSelection: [], //选中项的ID,

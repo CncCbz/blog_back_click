@@ -10,7 +10,7 @@
         <div class="img-box">
           <!-- <img  alt="" /> -->
           <el-image :src="item.vod_pic" style="width: 150px; height: 100px;margin:10px 10px 0px 10px" fit="cover">
-            <div slot="placeholder" class="image-slot">加载中<span class="dot">...</span></div>
+            <div slot="placeholder" class="image-slot"><i class="el-icon-loading"></i></div>
             <div slot="error" class="image-slot">
               <i class="el-icon-picture-outline"></i>
             </div>
@@ -36,6 +36,7 @@
 
 <script>
   const { getGhsConfig, checkVideoList, getVidoUrl } = require('@/request');
+  const { getStorage } = require('../../common');
   const axios = require('axios');
   export default {
     name: 'ghs',
@@ -44,7 +45,7 @@
         activeIndex: '1',
         titles: [],
         name: '',
-        userName: window.sessionStorage.getItem('userName'),
+        userName: getStorage('userName'),
         preview: [],
         curPageData: [],
         currentPage1: 1

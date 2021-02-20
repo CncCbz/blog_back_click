@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
+const { getStorage } = require('../common');
+
 //解决跳转同一路径报错
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location, onResolve, onReject) {
@@ -89,7 +91,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const token = window.sessionStorage.getItem('token');
+  const token = getStorage('token');
   if (token) {
     if (to.path === '/login') {
       alert(`请不要重复登录！`);

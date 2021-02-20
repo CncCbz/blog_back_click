@@ -3,6 +3,7 @@ const { toLogin } = require('./login');
 const { getRoles } = require('./role');
 const { getUsers, editUser, deleteUser, deleteUsers, addUser } = require('./user');
 const { getGhsConfig, checkVideoList, getVidoUrl } = require('./ghs');
+const { issueArticle } = require('./article');
 
 module.exports = {
   toRegister,
@@ -15,5 +16,6 @@ module.exports = {
   addUser,
   getGhsConfig,
   checkVideoList,
-  getVidoUrl
+  getVidoUrl,
+  issueArticle
 };

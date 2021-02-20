@@ -25,13 +25,14 @@
 </template>
 
 <script>
+  const { getStorage, clearStorage } = require('@/common');
   export default {
     name: 'topNav',
     data() {
       return {
         isCollapse: true,
         breadList: [], // 路由集合
-        userName: window.sessionStorage.getItem('userName')
+        userName: getStorage('userName')
       };
     },
     methods: {
@@ -49,7 +50,8 @@
       handleCommand(command) {
         switch (command) {
           case 'quit':
-            window.sessionStorage.clear();
+            clearStorage();
+            // window.sessionStorage.clear();
             this.$router.push('/login');
             this.$message('退出登录！');
         }
@@ -62,7 +64,7 @@
     },
     computed: {
       role() {
-        switch (window.sessionStorage.getItem('role')) {
+        switch (getStorage('role')) {
           case 'user':
             return '用户';
           case 'admin':
