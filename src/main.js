@@ -8,10 +8,9 @@ import store from './store';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 //markdown编辑器
-import VueMarkdownEditor from '@kangc/v-md-editor';
-import '@kangc/v-md-editor/lib/style/base-editor.css';
-import vuepressTheme from '@kangc/v-md-editor/lib/theme/vuepress.js';
-import '@kangc/v-md-editor/lib/theme/style/vuepress.css';
+import mavonEditor from 'mavon-editor';
+import 'mavon-editor/dist/css/index.css';
+// use
 
 const { getStorage } = require('./common');
 
@@ -30,8 +29,8 @@ axios.interceptors.request.use(
 //事件总线
 Vue.prototype.$bus = new Vue();
 
-VueMarkdownEditor.use(vuepressTheme);
-Vue.use(VueMarkdownEditor);
+// Vue.use(VueMarkdownEditor);
+Vue.use(mavonEditor);
 Vue.use(ElementUI);
 Vue.config.productionTip = false;
 
