@@ -66,6 +66,12 @@ const routes = [
             name: 'listArticle',
             meta: { title: '文章列表' },
             component: () => import('@/views/article/list.vue')
+          },
+          {
+            path: '/article-edit',
+            name: 'editArticle',
+            meta: { title: '编辑文章' },
+            component: () => import('@/views/article/edit.vue')
           }
         ]
       },
