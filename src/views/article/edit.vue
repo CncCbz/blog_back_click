@@ -13,7 +13,7 @@
           <el-tooltip content="编辑提交内容" placement="top">
             <el-button type="warning" icon="el-icon-edit" circle @click="dialogFormVisible = true"></el-button>
           </el-tooltip>
-          <el-button type="danger" round @click="submit" :disabled="!isAdmin">更新文章</el-button>
+          <el-button type="danger" round @click="submit">更新文章</el-button>
         </el-row>
         <div class="grid-content bg-purple-light"></div>
       </el-col>

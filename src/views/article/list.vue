@@ -44,6 +44,19 @@
         </template>
       </el-table-column>
     </el-table>
+    <div class="block">
+      <el-pagination
+        background
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="curPage"
+        :page-size="limit"
+        :page-sizes="[5, 10, 20, 50]"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total"
+      >
+      </el-pagination>
+    </div>
   </div>
 </template>
 
@@ -60,7 +73,8 @@
         //当前页码
         curPage: 1,
         //每页显示条数
-        limit: 10
+        limit: 10,
+        total: 0
       };
     },
     methods: {
@@ -88,6 +102,14 @@
             });
           });
       },
+      handleSizeChange(val) {
+        this.limit = val;
+        this._getArticleList(this.userName, this.curPage, this.limit);
+      },
+      handleCurrentChange(val) {
+        this.curPage = val;
+        this._getArticleList(this.userName, this.curPage, this.limit);
+      },
       //网络请求相关
       _getArticleList(userName, curPage, limit) {
         getArticleList(userName, curPage, limit)
@@ -96,8 +118,9 @@
               for (let item of res.list) {
                 item.tags = item.tags.split(',');
               }
+              this.total = res.total;
               this.tableData = res.list;
-              this.$message.success(res.data);
+              // this.$message.success(res.data);
             } else {
               this.$message.error(res.data);
             }
@@ -145,6 +168,9 @@
 </script>
 
 <style scoped>
+  .block {
+    margin-top: 4px;
+  }
   .demo-table-expand {
     font-size: 0;
   }

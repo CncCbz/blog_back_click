@@ -15,7 +15,7 @@
           <el-tooltip content="删除草稿" placement="top">
             <el-button type="info" icon="el-icon-delete" circle @click="clearDraft"></el-button>
           </el-tooltip>
-          <el-button type="danger" round @click="submit" :disabled="!isAdmin">发布文章</el-button>
+          <el-button type="danger" round @click="submit">发布文章</el-button>
         </el-row>
         <div class="grid-content bg-purple-light"></div>
       </el-col>
