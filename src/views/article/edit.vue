@@ -6,14 +6,14 @@
           <i class="el-icon-back" @click="goBack" style="padding-right:2vw"></i>
           <span>文章标题</span>
         </div>
-        <el-input type="text" placeholder="请输入内容" v-model="article.title" maxlength="80" show-word-limit> </el-input>
+        <el-input type="text" placeholder="请输入内容" v-model="article.title" maxlength="80" show-word-limit :disabled="!isInPerson"> </el-input>
       </el-col>
       <el-col :span="4">
         <el-row>
           <el-tooltip content="编辑提交内容" placement="top">
-            <el-button type="warning" icon="el-icon-edit" circle @click="dialogFormVisible = true"></el-button>
+            <el-button type="warning" icon="el-icon-edit" circle @click="dialogFormVisible = true" :disabled="!isInPerson"></el-button>
           </el-tooltip>
-          <el-button type="danger" round @click="submit">更新文章</el-button>
+          <el-button type="danger" round @click="submit" :disabled="!isInPerson">更新文章</el-button>
         </el-row>
         <div class="grid-content bg-purple-light"></div>
       </el-col>
@@ -45,12 +45,12 @@
         <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
       </div>
     </el-dialog>
-    <mavon-editor v-model="article.text" style="height:75vh" ref="md" @imgAdd="$imgAdd" @imgDel="$imgDel" />
+    <mavon-editor v-model="article.text" style="height:75vh" ref="md" @imgAdd="$imgAdd" @imgDel="$imgDel" :editable="isInPerson" />
   </div>
 </template>
 
 <script>
-  const { updateArticle, getArticle } = require('@/request');
+  const { updateArticle, getArticle, uploadImg } = require('@/request');
   const { getStorage } = require('../../common');
   export default {
     name: 'editArticle',
@@ -68,7 +68,8 @@
         inputValue: '',
         dialogFormVisible: false,
         formLabelWidth: '100px',
-        changed: false
+        changed: false,
+        isInPerson: false
       };
     },
     methods: {
@@ -104,24 +105,15 @@
         // 第一步.将图片上传到服务器.
         var formdata = new FormData();
         formdata.append('image', $file);
-        axios({
-          url: 'server url',
-          method: 'post',
-          data: formdata,
-          headers: { 'Content-Type': 'multipart/form-data' }
-        }).then(url => {
-          // 第二步.将返回的url替换到文本原位置![...](0) -> ![...](url)
-          /**
-           * $vm 指为mavonEditor实例，可以通过如下两种方式获取
-           * 1. 通过引入对象获取: `import {mavonEditor} from ...` 等方式引入后，`$vm`为`mavonEditor`
-           * 2. 通过$refs获取: html声明ref : `<mavon-editor ref=md ></mavon-editor>，`$vm`为 `this.$refs.md`
-           */
-          $vm.$img2Url(pos, url);
+        uploadImg(formdata).then(res => {
+          const url = res.data.data.url.ali;
+          this.$refs.md.$img2Url(pos, url);
+          this.$message.success('图片上传成功！');
         });
       },
       //删除图片
       $imgDel() {
-        console.log('删除图片');
+        this.$message.success('图片已删除！');
       },
       //发布文章
       submit() {
@@ -165,8 +157,10 @@
               res.articleInfo.tags = res.articleInfo.tags.split(',');
               this.article = res.articleInfo;
               this.$message.success(res.data);
+              this.isInPerson = true;
             } else {
               this.$message.error(res.data);
+              this.isInPerson = false;
             }
           })
           .catch(err => {
