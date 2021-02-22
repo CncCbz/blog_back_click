@@ -2,7 +2,7 @@ const { request } = require('./request');
 const issueArticle = async (userName, article) => {
   return request({
     method: 'post',
-    url: '/issuearticle',
+    url: '/article/issue',
     data: {
       userName,
       article
@@ -12,7 +12,7 @@ const issueArticle = async (userName, article) => {
 const deleteArticle = async (operator, id) => {
   return request({
     method: 'post',
-    url: '/deletearticle',
+    url: '/article/delete',
     data: {
       operator,
       id
@@ -22,7 +22,7 @@ const deleteArticle = async (operator, id) => {
 const getArticle = async (operator, id) => {
   return request({
     method: 'post',
-    url: '/getarticle',
+    url: '/article/get',
     data: {
       operator,
       id
@@ -32,7 +32,7 @@ const getArticle = async (operator, id) => {
 const updateArticle = async (operator, article) => {
   return request({
     method: 'post',
-    url: '/updatearticle',
+    url: '/article/update',
     data: {
       operator,
       article
@@ -42,7 +42,7 @@ const updateArticle = async (operator, article) => {
 const getArticleList = async (userName, curPage, limit) => {
   return request({
     method: 'post',
-    url: '/getarticlelist',
+    url: '/article/list',
     data: {
       userName,
       curPage,

@@ -12,20 +12,6 @@ import mavonEditor from 'mavon-editor';
 import 'mavon-editor/dist/css/index.css';
 // use
 
-const { getStorage } = require('./common');
-
-//设置axios请求自动携带token
-axios.interceptors.request.use(
-  config => {
-    const token = getStorage('token');
-    if (token) {
-      config.headers.common['Authorization'] = 'Bearer ' + token;
-    }
-    return config;
-  },
-  err => Promise.reject(err)
-);
-
 //事件总线
 Vue.prototype.$bus = new Vue();
 

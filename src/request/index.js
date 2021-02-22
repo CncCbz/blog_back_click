@@ -4,6 +4,7 @@ const { getRoles } = require('./role');
 const { getUsers, editUser, deleteUser, deleteUsers, addUser } = require('./user');
 const { getGhsConfig, checkVideoList, getVidoUrl } = require('./ghs');
 const { issueArticle, getArticleList, deleteArticle, getArticle, updateArticle } = require('./article');
+const { uploadImg } = require('./upload');
 
 module.exports = {
   toRegister,
@@ -21,5 +22,6 @@ module.exports = {
   getArticleList,
   deleteArticle,
   getArticle,
-  updateArticle
+  updateArticle,
+  uploadImg
 };

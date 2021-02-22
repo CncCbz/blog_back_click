@@ -3,7 +3,7 @@ const { request } = require('./request');
 const getUsers = async userName => {
   return request({
     method: 'post',
-    url: '/getusers',
+    url: '/user/list',
     data: {
       userName
     }
@@ -13,7 +13,7 @@ const getUsers = async userName => {
 const editUser = async (operator, formData) => {
   return request({
     method: 'post',
-    url: '/edituser',
+    url: '/user/edit',
     data: {
       operator,
       formData
@@ -24,7 +24,7 @@ const editUser = async (operator, formData) => {
 const deleteUser = async (operator, id) => {
   return request({
     method: 'post',
-    url: '/deleteuser',
+    url: '/user/delete',
     data: {
       operator,
       id
@@ -35,7 +35,7 @@ const deleteUser = async (operator, id) => {
 const deleteUsers = async (operator, ids) => {
   return request({
     method: 'post',
-    url: '/deleteusers',
+    url: '/user/deletes',
     data: {
       operator,
       ids
@@ -46,7 +46,7 @@ const deleteUsers = async (operator, ids) => {
 const addUser = async (operator, formData) => {
   return request({
     method: 'post',
-    url: '/adduser',
+    url: '/user/add',
     data: {
       operator,
       formData

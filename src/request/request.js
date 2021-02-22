@@ -1,12 +1,12 @@
 // import axios from 'axios';
 const axios = require('axios');
 const { getStorage } = require('../common');
-
+const { BASR_URL } = require('../config');
 const request = config => {
   // 1.创建axios的实例
   const instance = axios.create({
     // baseURL: 'http://47.92.149.236:8888/',
-    baseURL: 'http://localhost:8888/',
+    baseURL: BASR_URL,
     timeout: 50000
   });
 

@@ -3,7 +3,7 @@ const { request } = require('./request');
 const getGhsConfig = async () => {
   return request({
     method: 'post',
-    url: '/ghsconfig'
+    url: '/ghs/config'
   });
 };
 
@@ -11,7 +11,7 @@ const checkVideoList = async (name, type, userName) => {
   const limit = 200;
   return request({
     method: 'post',
-    url: '/ghsvideolist',
+    url: '/ghs/videolist',
     data: {
       name,
       type,
@@ -24,7 +24,7 @@ const checkVideoList = async (name, type, userName) => {
 const getVidoUrl = async (id, name, userName) => {
   return request({
     method: 'post',
-    url: '/ghsvideourl',
+    url: '/ghs/videourl',
     data: {
       id,
       name,
