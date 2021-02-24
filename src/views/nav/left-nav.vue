@@ -43,7 +43,7 @@
         <i class="el-icon-chat-line-square"></i>
         <span slot="title">留言管理</span>
       </el-menu-item>
-      <el-menu-item index="4" v-if="isAllow('log')">
+      <el-menu-item index="logs" v-if="isAllow('log')">
         <i class="el-icon-tickets"></i>
         <span slot="title">博客日志</span>
       </el-menu-item>

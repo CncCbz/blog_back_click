@@ -85,13 +85,19 @@ const routes = [
         name: 'video',
         component: () => import('@/views/ghs'),
         meta: { title: 'GHS' }
+      },
+      {
+        path: '/logs',
+        name: 'log',
+        component: () => import('@/views/log'),
+        meta: { title: '日志' }
       }
     ]
   }
 ];
 
 const router = new VueRouter({
-  mode: 'history',
+  // mode: 'history',
   base: process.env.BASE_URL,
   routes
 });
