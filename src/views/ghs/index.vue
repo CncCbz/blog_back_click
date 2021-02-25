@@ -53,13 +53,12 @@
     },
     methods: {
       getVideoList(name, type) {
-        console.log(name, type);
         this._getVideoList(name, type, this.userName);
       },
       changeData(data) {
         this.titles = data.types;
         this.name = data.name;
-        this.getVideoList(data.name, data.types[0]);
+        // this._getVideoList(data.name, data.types[0], this.userName);
       },
       load() {
         this.loading = true;
@@ -153,5 +152,9 @@
   } */
   .block {
     margin-top: 30px;
+  }
+  .search {
+    display: flex;
+    width: 30%;
   }
 </style>

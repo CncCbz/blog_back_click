@@ -129,6 +129,14 @@
               this.$message.error(`标题不能为空！`);
             } else {
               this._updateArticle(this.userName, this.article);
+              this.$store.commit('clearDraft');
+              this.article = {
+                text: '',
+                title: '',
+                prevText: '',
+                tags: []
+              };
+              this.$router.push('/article-list');
             }
           })
           .catch(() => {

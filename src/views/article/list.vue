@@ -74,7 +74,8 @@
         curPage: 1,
         //每页显示条数
         limit: 10,
-        total: 0
+        total: 0,
+        search: ''
       };
     },
     methods: {

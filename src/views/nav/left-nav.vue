@@ -69,7 +69,7 @@
     name: 'leftNav',
     data() {
       return {
-        isCollapse: true,
+        isCollapse: false,
         ghsList: []
       };
     },

@@ -54,7 +54,6 @@
 <script>
   const { issueArticle, uploadImg } = require('@/request');
   const { getStorage } = require('../../common');
-  const axios = require('axios');
   export default {
     name: 'increaseArticle',
     data() {
@@ -164,6 +163,14 @@
               this.$message.error(`标题不能为空！`);
             } else {
               this._issueArticle(this.userName, this.article);
+              this.$store.commit('clearDraft');
+              this.article = {
+                text: '',
+                title: '',
+                prevText: '',
+                tags: []
+              };
+              this.$router.push('/article-list');
             }
           })
           .catch(() => {

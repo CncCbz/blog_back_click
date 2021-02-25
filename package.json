@@ -13,6 +13,7 @@
     "hls.js": "^0.14.17",
     "js-md5": "^0.7.3",
     "mavon-editor": "^2.9.1",
+    "moment": "^2.29.1",
     "video.js": "^7.11.4",
     "videojs-contrib-hls": "^5.15.0",
     "vue": "^2.6.11",
