@@ -7,10 +7,10 @@
       v-if="showTable"
     >
       <el-table-column type="selection" width="55"> </el-table-column>
-      <el-table-column label="ID" prop="id" width="80" sortable> </el-table-column>
-      <el-table-column label="用户名" prop="username" width="150" sortable> </el-table-column>
-      <el-table-column v-if="isSuperAdmin" label="密码" prop="password"> </el-table-column>
-      <el-table-column prop="role" label="角色" width="150" :filters="roles" :filter-method="filterTag" filter-placement="bottom-end">
+      <el-table-column label="ID" prop="id" sortable> </el-table-column>
+      <el-table-column label="用户名" prop="username" sortable> </el-table-column>
+      <!-- <el-table-column v-if="isSuperAdmin" label="密码" prop="password"> </el-table-column> -->
+      <el-table-column prop="role" label="角色" :filters="roles" :filter-method="filterTag" filter-placement="bottom-end">
         <template slot-scope="scope">
           <el-tag :type="tagType(scope.row.role)" disable-transitions>{{ scope.row.role }}</el-tag>
         </template>
@@ -20,7 +20,6 @@
         <template slot="header" slot-scope="scope">
           <div style="display:flex;">
             <el-input style="margin-right: 10%;" v-model="search" size="mini" placeholder="关键字搜索" />
-            <el-button size="mini" type="success" @click="handleAddUser" :disabled="!isAdmin">添加</el-button>
             <el-button size="mini" type="danger" @click="handleDeleteMul(multipleSelection)" :disabled="!isAdmin">删除选中</el-button>
           </div>
         </template>
@@ -45,9 +44,9 @@
         <el-form-item label="用户名" :label-width="formLabelWidth">
           <el-input v-model="form.username" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="密码" :label-width="formLabelWidth">
+        <!-- <el-form-item label="密码" :label-width="formLabelWidth">
           <el-input v-model="form.password" autocomplete="off"></el-input>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="角色" :label-width="formLabelWidth">
           <el-select v-model="form.role" placeholder="请选择角色">
             <el-option label="用户" value="user"></el-option>
@@ -93,9 +92,6 @@
       handleEdit(index, row) {
         this.dialogFormVisible = true;
         this.form = row;
-      },
-      handleAddUser() {
-        console.log('添加用户');
       },
       handleDelete(index, row) {
         const operator = this.userName;

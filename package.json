@@ -9,6 +9,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "echarts": "^5.0.2",
     "element-ui": "^2.15.0",
     "hls.js": "^0.14.17",
     "js-md5": "^0.7.3",

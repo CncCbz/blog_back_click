@@ -6,6 +6,7 @@ const { getGhsConfig, checkVideoList, getVidoUrl } = require('./ghs');
 const { issueArticle, getArticleList, deleteArticle, getArticle, updateArticle } = require('./article');
 const { uploadImg } = require('./upload');
 const { getLogs } = require('./log');
+const { getVisitors } = require('./home');
 
 module.exports = {
   toRegister,
@@ -25,5 +26,6 @@ module.exports = {
   getArticle,
   updateArticle,
   uploadImg,
-  getLogs
+  getLogs,
+  getVisitors
 };

@@ -126,7 +126,6 @@
       _getLogs(operator, curPage, limit) {
         getLogs(operator, curPage, limit)
           .then(res => {
-            console.log(res);
             if (res.msg === 'success') {
               this.logs = res.logs;
               this.total = res.total;

@@ -150,7 +150,7 @@
           });
       }
     },
-    created() {
+    mounted() {
       this._getArticleList(this.userName, this.curPage, this.limit);
     },
     computed: {
