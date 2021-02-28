@@ -17,7 +17,8 @@
           <div class="info-box">
             <div class="users">
               <div><span>操作者：</span>{{ log.operator }}</div>
-              <div><span>目标者：</span>{{ log.target }}</div>
+              <div v-if="log.target.includes('http')"><span>目标者：</span><a :href="log.target" target="_blank">链接</a></div>
+              <div v-else><span>目标者：</span>{{ log.target }}</div>
             </div>
             <div class="log-info">
               <div><span>备注：</span>{{ log.remark }}</div>

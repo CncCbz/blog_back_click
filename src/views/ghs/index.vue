@@ -104,7 +104,7 @@
                 message: res.data
               });
             }
-            this.$alert(`<a href="${res.infos['player_list'][0].url}">链接</a>${res.infos['player_list'][0].url}`, '视频链接', {
+            this.$alert(`<a href="${res.infos['player_list'][0].url}" target="_blank">链接</a>${res.infos['player_list'][0].url}`, '视频链接', {
               dangerouslyUseHTMLString: true
             });
             // this.$alert(`复制到QQ或浏览器打开${}`, '视频链接', {
