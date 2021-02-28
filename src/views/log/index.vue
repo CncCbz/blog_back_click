@@ -17,7 +17,7 @@
           <div class="info-box">
             <div class="users">
               <div><span>操作者：</span>{{ log.operator }}</div>
-              <div v-if="log.target.includes('http')"><span>目标者：</span><a :href="log.target" target="_blank">链接</a></div>
+              <div v-if="/^.*-\d*$/.test(log.target)"><span>目标者：</span><a href="javascript:;" @click="showVideo(log.target)">链接</a></div>
               <div v-else><span>目标者：</span>{{ log.target }}</div>
             </div>
             <div class="log-info">
@@ -48,6 +48,7 @@
   const moment = require('moment');
   const { getLogs } = require('../../request');
   const { getStorage } = require('../../common');
+  const { getVidoUrl } = require('@/request');
   export default {
     name: 'log',
     data() {
@@ -123,6 +124,11 @@
         this.curPage = val;
         this._getLogs(this.operator, this.curPage, this.limit);
       },
+      showVideo(target) {
+        const arr = target.split('-');
+        console.log(arr);
+        this._getVidoUrl(arr[1], arr[0], this.operator);
+      },
       //网络请求相关
       _getLogs(operator, curPage, limit) {
         getLogs(operator, curPage, limit)
@@ -134,6 +140,26 @@
             } else {
               this.$message.error(res.data);
             }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      },
+      _getVidoUrl(id, name, userName) {
+        getVidoUrl(id, name, userName)
+          .then(res => {
+            if (res.msg === 'success') {
+              this.$message({
+                type: 'success',
+                message: res.data
+              });
+            }
+            this.$alert(`<a href="${res.infos['player_list'][0].url}" target="_blank">链接</a>${res.infos['player_list'][0].url}`, '视频链接', {
+              dangerouslyUseHTMLString: true
+            });
+            // this.$alert(`复制到QQ或浏览器打开${}`, '视频链接', {
+            //   confirmButtonText: '确定'
+            // });
           })
           .catch(err => {
             console.log(err);
