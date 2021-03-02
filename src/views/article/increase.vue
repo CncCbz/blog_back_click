@@ -51,7 +51,7 @@
       <mavon-editor
         v-model="article.text"
         style="height:100%"
-        @change="changed = true"
+        @change="articleChanged"
         @save="saveDraft"
         ref="md"
         @imgAdd="$imgAdd"
@@ -81,7 +81,8 @@
         inputValue: '',
         dialogFormVisible: false,
         formLabelWidth: '100px',
-        changed: false
+        changed: false,
+        saved: false
       };
     },
     methods: {
@@ -177,6 +178,10 @@
             this.$message.info('已取消发布');
           });
       },
+      articleChanged() {
+        this.changed = true;
+        this.saved = false;
+      },
       //网络请求相关
       _issueArticle(userName, article) {
         issueArticle(userName, article)
@@ -197,6 +202,7 @@
           .then(res => {
             if (res.msg === 'success') {
               this.$message.success(res.data);
+              this.saved = true;
             } else {
               this.$message.error(res.data);
             }
@@ -230,7 +236,7 @@
         deleteDraft(userName)
           .then(res => {
             if (res.msg === 'success') {
-              this.$message.info('草稿删除成功！');
+              this.$message.info('草稿已丢弃！');
             } else {
               this.$message.error(res.data);
             }
@@ -245,7 +251,7 @@
       this._getDraft(this.userName);
     },
     beforeDestroy() {
-      if (this.changed) {
+      if (this.changed && !this.saved) {
         this.$confirm('是否保存草稿?', '提示', {
           confirmButtonText: '保存',
           cancelButtonText: '丢弃',
@@ -255,7 +261,8 @@
             this.saveDraft();
           })
           .catch(() => {
-            this.$message.info('已丢弃草稿');
+            this.clearDraft();
+            // this.$message.info('已丢弃草稿');
           });
       }
     },

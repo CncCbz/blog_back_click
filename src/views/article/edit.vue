@@ -45,7 +45,9 @@
         <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
       </div>
     </el-dialog>
-    <!-- <mavon-editor v-model="article.text" style="height:75vh" ref="md" @imgAdd="$imgAdd" @imgDel="$imgDel" :editable="isInPerson" /> -->
+    <div style="height:75vh">
+      <mavon-editor v-model="article.text" style="height:100%" ref="md" @imgAdd="$imgAdd" @imgDel="$imgDel" />
+    </div>
   </div>
 </template>
 
