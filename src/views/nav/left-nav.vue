@@ -39,7 +39,7 @@
           <el-menu-item index="user-list">用户列表</el-menu-item>
         </el-menu-item-group>
       </el-submenu>
-      <el-menu-item index="3" v-if="isAllow('comment')">
+      <el-menu-item index="comment" v-if="isAllow('comment')">
         <i class="el-icon-chat-line-square"></i>
         <span slot="title">留言管理</span>
       </el-menu-item>

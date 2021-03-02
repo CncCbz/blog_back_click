@@ -1,13 +1,13 @@
 <template>
   <div>
     <el-row>
-      <el-col :span="20">
+      <el-col :span="16">
         <div class="title">
           <span>文章标题</span>
         </div>
         <el-input type="text" placeholder="请输入内容" v-model="article.title" maxlength="100" show-word-limit> </el-input>
       </el-col>
-      <el-col :span="4">
+      <el-col :span="8">
         <el-row>
           <el-tooltip content="编辑提交内容" placement="top">
             <el-button type="warning" icon="el-icon-edit" circle @click="dialogFormVisible = true"></el-button>
@@ -47,13 +47,24 @@
         <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
       </div>
     </el-dialog>
-    <mavon-editor v-model="article.text" style="height:75vh" @save="saveDraft" ref="md" @imgAdd="$imgAdd" @imgDel="$imgDel" />
+    <div style="height:75vh">
+      <mavon-editor
+        v-model="article.text"
+        style="height:100%"
+        @change="changed = true"
+        @save="saveDraft"
+        ref="md"
+        @imgAdd="$imgAdd"
+        @imgDel="$imgDel"
+      />
+    </div>
   </div>
 </template>
 
 <script>
-  const { issueArticle, uploadImg } = require('@/request');
+  const { issueArticle, uploadImg, updateDraft, getDraft, deleteDraft } = require('@/request');
   const { getStorage } = require('../../common');
+  const { throttle } = require('../../utils');
   export default {
     name: 'increaseArticle',
     data() {
@@ -114,14 +125,7 @@
       },
       //草稿
       saveDraft() {
-        this.$store.commit('setDraft', { key: 'article', value: this.article.text });
-        this.$store.commit('setDraft', { key: 'tags', value: this.article.tags });
-        this.$store.commit('setDraft', { key: 'title', value: this.article.title });
-        this.$store.commit('setDraft', { key: 'prevText', value: this.article.prevText });
-        this.$message({
-          type: 'success',
-          message: '草稿已保存！'
-        });
+        this._updateDraft(this.userName, this.article);
       },
       clearDraft() {
         this.$confirm('确认删除草稿?', '提示', {
@@ -130,17 +134,13 @@
           type: 'warning'
         })
           .then(() => {
-            this.$store.commit('clearDraft');
+            this._deleteDraft(this.userName);
             this.article = {
               text: '',
               title: '',
               prevText: '',
-              tags: []
+              tags: ['Javascript']
             };
-            this.$message({
-              type: 'success',
-              message: '删除草稿成功!'
-            });
           })
           .catch(() => {
             this.$message({
@@ -191,16 +191,73 @@
             console.log(err);
             this.$message.error('Error!');
           });
+      },
+      _updateDraft(userName, article) {
+        updateDraft(userName, article)
+          .then(res => {
+            if (res.msg === 'success') {
+              this.$message.success(res.data);
+            } else {
+              this.$message.error(res.data);
+            }
+          })
+          .catch(err => {
+            this.$message.error('error');
+            console.log(err);
+          });
+      },
+      _getDraft(userName) {
+        getDraft(userName)
+          .then(res => {
+            if (res.msg === 'success') {
+              this.article.title = res.article.title;
+              this.article.text = res.article.text;
+              this.article.prevText = res.article.prevText;
+              this.article.tags = res.article.tags;
+              this.$message.success(res.data);
+            } else if (res.msg === 'none') {
+              console.log('没有草稿');
+            } else {
+              this.$message.error(res.data);
+            }
+          })
+          .catch(err => {
+            this.$message.error('error');
+            console.log(err);
+          });
+      },
+      _deleteDraft(userName) {
+        deleteDraft(userName)
+          .then(res => {
+            if (res.msg === 'success') {
+              this.$message.info('草稿删除成功！');
+            } else {
+              this.$message.error(res.data);
+            }
+          })
+          .catch(err => {
+            this.$message.error('error');
+            console.log(err);
+          });
       }
     },
     mounted() {
-      this.article.title = this.$store.getters.getDraft('title');
-      this.article.text = this.$store.getters.getDraft('article');
-      this.article.prevText = this.$store.getters.getDraft('prevText');
-      this.article.tags = this.$store.getters.getDraft('tags');
+      this._getDraft(this.userName);
     },
     beforeDestroy() {
-      this.saveDraft();
+      if (this.changed) {
+        this.$confirm('是否保存草稿?', '提示', {
+          confirmButtonText: '保存',
+          cancelButtonText: '丢弃',
+          type: 'warning'
+        })
+          .then(() => {
+            this.saveDraft();
+          })
+          .catch(() => {
+            this.$message.info('已丢弃草稿');
+          });
+      }
     },
     computed: {
       isSuperAdmin() {

@@ -63,8 +63,8 @@
               type: 'value',
               name: '访问次数',
               min: 0,
-              max: 25,
-              interval: 5,
+              max: 50,
+              interval: 10,
               axisLabel: {
                 formatter: '{value} 次'
               }

@@ -45,7 +45,7 @@
         <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
       </div>
     </el-dialog>
-    <mavon-editor v-model="article.text" style="height:75vh" ref="md" @imgAdd="$imgAdd" @imgDel="$imgDel" :editable="isInPerson" />
+    <!-- <mavon-editor v-model="article.text" style="height:75vh" ref="md" @imgAdd="$imgAdd" @imgDel="$imgDel" :editable="isInPerson" /> -->
   </div>
 </template>
 
@@ -166,6 +166,8 @@
               this.article = res.articleInfo;
               this.$message.success(res.data);
               this.isInPerson = true;
+            } else if (res.msg === 'none') {
+              console.log(res.data);
             } else {
               this.$message.error(res.data);
               this.isInPerson = false;

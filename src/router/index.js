@@ -91,6 +91,12 @@ const routes = [
         name: 'log',
         component: () => import('@/views/log'),
         meta: { title: '日志' }
+      },
+      {
+        path: '/comment',
+        name: 'comment',
+        component: () => import('@/views/comment'),
+        meta: { title: '留言管理' }
       }
     ]
   }

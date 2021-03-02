@@ -50,11 +50,41 @@ const getArticleList = async (userName, curPage, limit) => {
     }
   });
 };
-
+const updateDraft = async (userName, draft) => {
+  return request({
+    method: 'post',
+    url: '/draft/save',
+    data: {
+      userName,
+      draft
+    }
+  });
+};
+const getDraft = async userName => {
+  return request({
+    method: 'post',
+    url: '/draft/get',
+    data: {
+      userName
+    }
+  });
+};
+const deleteDraft = async userName => {
+  return request({
+    method: 'post',
+    url: '/draft/delete',
+    data: {
+      userName
+    }
+  });
+};
 module.exports = {
   issueArticle,
   getArticleList,
   deleteArticle,
   getArticle,
-  updateArticle
+  updateArticle,
+  updateDraft,
+  getDraft,
+  deleteDraft
 };
