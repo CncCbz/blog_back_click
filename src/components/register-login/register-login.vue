@@ -42,10 +42,12 @@
         toLogin(this.userName, this.password)
           .then(res => {
             if (res.msg === 'success') {
+              const id = res.id;
               const token = res.token;
               const role = res.role;
               const userName = res.userName;
               const authority = JSON.stringify(res.authority);
+              setStorage('id', id);
               setStorage('token', token);
               setStorage('role', role);
               setStorage('userName', userName);

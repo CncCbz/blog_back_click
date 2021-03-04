@@ -39,10 +39,16 @@
           <el-menu-item index="user-list">用户列表</el-menu-item>
         </el-menu-item-group>
       </el-submenu>
-      <el-menu-item index="comment" v-if="isAllow('comment')">
-        <i class="el-icon-chat-line-square"></i>
-        <span slot="title">留言管理</span>
-      </el-menu-item>
+      <el-submenu index="comment" v-if="isAllow('comment')">
+        <template slot="title">
+          <i class="el-icon-user"></i>
+          <span slot="title">留言管理</span>
+        </template>
+        <el-menu-item-group>
+          <el-menu-item index="comment-reply">@我的</el-menu-item>
+          <el-menu-item index="comment-list">评论我的</el-menu-item>
+        </el-menu-item-group>
+      </el-submenu>
       <el-menu-item index="logs" v-if="isAllow('log')">
         <i class="el-icon-tickets"></i>
         <span slot="title">博客日志</span>

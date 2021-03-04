@@ -39,14 +39,15 @@ const updateArticle = async (operator, article) => {
     }
   });
 };
-const getArticleList = async (userName, curPage, limit) => {
+const getArticleList = async (userName, curPage, limit, sort = { created_at: 'descending' }) => {
   return request({
     method: 'post',
     url: '/article/list',
     data: {
       userName,
       curPage,
-      limit
+      limit,
+      sort
     }
   });
 };

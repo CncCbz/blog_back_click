@@ -7,6 +7,7 @@ const { issueArticle, getArticleList, deleteArticle, getArticle, updateArticle, 
 const { uploadImg } = require('./upload');
 const { getLogs } = require('./log');
 const { getVisitors } = require('./home');
+const { getComments, setTopStatus, deleteComment } = require('./comment');
 
 module.exports = {
   toRegister,
@@ -30,5 +31,8 @@ module.exports = {
   deleteDraft,
   uploadImg,
   getLogs,
-  getVisitors
+  getVisitors,
+  getComments,
+  setTopStatus,
+  deleteComment
 };

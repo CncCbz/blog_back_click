@@ -261,7 +261,13 @@
             this.saveDraft();
           })
           .catch(() => {
-            this.clearDraft();
+            this._deleteDraft(this.userName);
+            this.article = {
+              text: '',
+              title: '',
+              prevText: '',
+              tags: ['Javascript']
+            };
             // this.$message.info('已丢弃草稿');
           });
       }

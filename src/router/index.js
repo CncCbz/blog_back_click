@@ -96,7 +96,21 @@ const routes = [
         path: '/comment',
         name: 'comment',
         component: () => import('@/views/comment'),
-        meta: { title: '留言管理' }
+        meta: { title: '留言管理' },
+        children: [
+          {
+            path: '/comment-reply',
+            name: 'replyComment',
+            meta: { title: '回复我的' },
+            component: () => import('@/views/comment/reply.vue')
+          },
+          {
+            path: '/comment-list',
+            name: 'listComment',
+            meta: { title: '评论我的' },
+            component: () => import('@/views/comment/comment.vue')
+          }
+        ]
       }
     ]
   }

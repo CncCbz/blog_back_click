@@ -1,12 +1,10 @@
 <template>
-  <div>
-    <router-view />
-  </div>
+  <div>评论回复</div>
 </template>
 
 <script>
   export default {
-    name: 'commnets',
+    name: '',
     data() {
       return {};
     }

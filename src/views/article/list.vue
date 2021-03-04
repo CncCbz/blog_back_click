@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-table :data="tableData" style="width: 100%" height="80vh">
+    <el-table :data="tableData" style="width: 100%" height="80vh" @sort-change="sortChange">
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form label-position="left" inline class="demo-table-expand">
@@ -22,9 +22,9 @@
           </el-form>
         </template>
       </el-table-column>
-      <el-table-column label="发布时间" prop="created_at" sortable> </el-table-column>
-      <el-table-column label="标题" prop="title" sortable> </el-table-column>
-      <el-table-column label="作者" prop="auther" sortable> </el-table-column>
+      <el-table-column label="发布时间" prop="created_at" sortable="custom"> </el-table-column>
+      <el-table-column label="标题" prop="title" sortable="custom"> </el-table-column>
+      <el-table-column label="作者" prop="auther" sortable="custom"> </el-table-column>
       <el-table-column label="标签">
         <template slot-scope="props">
           <el-tag
@@ -79,6 +79,11 @@
       };
     },
     methods: {
+      sortChange(data) {
+        const sort = {};
+        sort[data.prop] = data.order;
+        this._getArticleList(this.userName, this.curPage, this.limit, sort);
+      },
       handleEdit(index, row) {
         this.$router.push({
           path: '/article-edit',
@@ -112,8 +117,8 @@
         this._getArticleList(this.userName, this.curPage, this.limit);
       },
       //网络请求相关
-      _getArticleList(userName, curPage, limit) {
-        getArticleList(userName, curPage, limit)
+      _getArticleList(userName, curPage, limit, sort) {
+        getArticleList(userName, curPage, limit, sort)
           .then(res => {
             if (res.msg === 'success') {
               for (let item of res.list) {
