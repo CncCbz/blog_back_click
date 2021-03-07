@@ -150,15 +150,15 @@
       sortChange(data) {
         this.sort = {};
         this.sort[data.prop] = data.order;
-        this._getComments(this.userName, this.curPage, this.limit, this.sort);
+        this._getComments(this.userName, this.curPage, this.limit, this.sort, this.filter);
       },
       handleSizeChange(val) {
         this.limit = val;
-        this._getComments(this.userName, this.curPage, this.limit, this.sort);
+        this._getComments(this.userName, this.curPage, this.limit, this.sort, this.filter);
       },
       handleCurrentChange(val) {
         this.curPage = val;
-        this._getComments(this.userName, this.curPage, this.limit, this.sort);
+        this._getComments(this.userName, this.curPage, this.limit, this.sort, this.filter);
       },
       //操作评论
       setTopStatus(row) {
