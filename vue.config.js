@@ -20,7 +20,4 @@ module.exports = {
       }
     }
   }
-  // devServer: {
-  //   proxy: 'http://106.55.20.150:8888/'
-  // }
 };
