@@ -62,10 +62,27 @@ const getReplys = async (userName, curPage, limit, sort = { createdAt: 'descendi
     data: { userName, filter, sort, curPage, limit }
   });
 };
+/**
+ * 删除回复
+ * @param {String} userName 操作人
+ * @param {String} targetName 目标人
+ * @param {Number} isDeleted 修改后删除状态：1为删除0为未删除
+ * @param {Number} id 回复ID
+ * @param {Number} replyId 评论ID
+ * @returns
+ */
+const deleteRelpy = async (userName, targetName, isDeleted, id, replyId) => {
+  return request({
+    method: 'post',
+    url: '/comment/reply/delete',
+    data: { userName, targetName, isDeleted, id, replyId }
+  });
+};
 
 module.exports = {
   getComments,
   setTopStatus,
   deleteComment,
-  getReplys
+  getReplys,
+  deleteRelpy
 };
